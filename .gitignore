@@ -1,0 +1,9 @@
+node_modules/
+.idea/
+dist/
+**/*.js
+coverage/
+.scannerwork/
+.nyc_output/
+.vscode/
+.env.test/
