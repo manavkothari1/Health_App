@@ -1,6 +1,6 @@
 import {createConnection,Connection} from "typeorm";
 require('custom-env').env('test'); 
-// import {users} from '../schemas/User';
+import {user} from '../entity/User';
 
 class DB {
     public connection: Promise<Connection>;
@@ -16,8 +16,8 @@ class DB {
             username: process.env.DB_USERNAME,
             password:  process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
-            entities: [],
-            ssl:{ rejectUnauthorized: false }
+            entities: [user],
+            ssl:false
         });
     }
 }
