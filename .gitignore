@@ -6,4 +6,4 @@ coverage/
 .scannerwork/
 .nyc_output/
 .vscode/
-.env.test/
+.env.test
