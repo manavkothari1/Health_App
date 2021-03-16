@@ -1,8 +1,8 @@
 import { Connection } from "typeorm";
 import { dbConnection } from '../config/db';
-import {user} from '../entity/User';
+import {doctor_profile} from '../entity/doctor';
 
-export class UserService {
+export class DoctorService {
     
     constructor(){
     }
@@ -10,12 +10,13 @@ export class UserService {
     /**
      * get user by id
      */
-    static async getUser()  {
+    static async getDoctor()  {
         return await dbConnection
         .then(async connection2 => {
-           let data= await connection2.manager.find(user);
+           let data= await connection2.manager.find(doctor_profile);
            return data;
         })
+        
     }
 
 }
