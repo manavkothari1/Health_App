@@ -7,7 +7,7 @@ export class doctor_profile {
     id?: number ;
 
     @Column({ type: 'integer', nullable: false })
-    user_id?: string | null;
+    user_id?: number | null;
     
     @Column({ type: 'character', nullable: true })
     full_name?: string | null;
