@@ -9,9 +9,9 @@ export class UserController {
     constructor() { }
 
     static async getUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
-        return Utils.sendResponse(res,{
-            message:'user api called!!'
-        });
+        let user_data = await UserService.getUser();
+        return Utils.sendResponse(res,user_data);
     }
+
 
 }

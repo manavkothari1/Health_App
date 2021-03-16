@@ -1,6 +1,6 @@
 import { Connection } from "typeorm";
 import { dbConnection } from '../config/db';
-import { User } from '../core/models';
+import {user} from '../entity/User';
 
 export class UserService {
     
@@ -9,10 +9,14 @@ export class UserService {
 
     /**
      * get user by id
-     * @param id id of the user
      */
-    static async getUserById(id:number) :Promise<User | null | undefined> {
-        return null;
+    static async getUser()  {
+        return await dbConnection
+        .then(async connection2 => {
+           let data= await connection2.manager.find(user);
+           return data;
+        })
+        
     }
 
 }
