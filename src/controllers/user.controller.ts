@@ -8,10 +8,13 @@ import { STATUS } from '../core/constants/status.code';
 export class UserController {
     constructor() { }
 
-    static async getUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
-        let user_data = await UserService.getUser();
-        return Utils.sendResponse(res,user_data);
+    static async addUser(req: Request, res: Response): Promise<Response | void> {
+        try{
+            const { full_name,gender,password,utype,experience,education,licence_no} = req.body;
+            
+
+        }catch(e){
+            console.log(e);
+        }
     }
-
-
 }
