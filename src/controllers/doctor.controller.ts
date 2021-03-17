@@ -9,7 +9,7 @@ export class DoctorController {
 
     static async addDoctor(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
-            const { full_name, gender, email, password, age, experience, education, licence_no } = req.body;
+            const { full_name, gender, email, password, experience, education, licence_no } = req.body;
             await DoctorService.addDoctor({
                 email,
                 full_name,
@@ -46,6 +46,27 @@ export class DoctorController {
     static async getDoctorById(req: Request, res: Response): Promise<Response | void> {
         try{
             const id :string = req.params.id;
+
+            const doctor = await DoctorService.getDoctorById(id);
+
+            return Utils.sendResponse(res,{
+                doctor
+            })
+        }catch(e){
+            console.log(e);
+            return Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+        }
+    }
+
+
+    static async updateDoctorById(req: Request, res: Response): Promise<Response | void> {
+        try{
+            const id :string = req.params.id;
+            const { full_name, gender, email, password, experience, education, licence_no } = req.body;
+
+            await DoctorService.updateDoctorById({
+                full_name, gender, email, password, experience, education, licence_no,id
+            });
 
             const doctor = await DoctorService.getDoctorById(id);
 

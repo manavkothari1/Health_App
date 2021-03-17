@@ -9,11 +9,12 @@ export class PatientController {
 
     static async addPatient(req: Request, res: Response): Promise<Response | void> {
         try{
-            const { full_name,gender,email,password,age} = req.body;
+            const { full_name,gender,email,physical_handicapped,password,age} = req.body;
                 await PatientService.addPatient({
                     email,
                     full_name,
                     gender,
+                    physical_handicapped,
                     age,
                     password
                 }) 
@@ -44,6 +45,30 @@ export class PatientController {
     static async getPatientsById(req: Request, res: Response): Promise<Response | void> {
         try{
             const id :string = req.params.id;
+
+            const patient = await PatientService.getPatientById(id);
+
+            return Utils.sendResponse(res,{
+                patient
+            })
+        }catch(e){
+            console.log(e);
+            return Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+        }
+    }
+
+    static async updatePatientById(req: Request, res: Response): Promise<Response | void> {
+        try{
+            const id :string = req.params.id;
+            const { full_name,gender,age,physical_handicapped} = req.body;
+
+            await PatientService.updatePatientById({
+                id,
+                full_name,
+                physical_handicapped,
+                gender,
+                age
+            });
 
             const patient = await PatientService.getPatientById(id);
 

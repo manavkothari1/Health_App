@@ -11,7 +11,7 @@ export class UserController {
 
     static async addUser(req: Request, res: Response): Promise<Response | void> {
         try{
-            const { full_name,gender,email,password,age,utype,experience,education,licence_no} = req.body;
+            const { full_name,gender,email,physical_handicapped,password,age,utype,experience,education,licence_no} = req.body;
             
             if(utype ==  'doctor'){
                 await DoctorService.addDoctor({
@@ -32,6 +32,7 @@ export class UserController {
                     email,
                     full_name,
                     gender,
+                    physical_handicapped,
                     age,
                     password
                 }) 

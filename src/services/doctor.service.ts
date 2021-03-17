@@ -36,4 +36,12 @@ export class DoctorService {
                 return data;
             });
     }
+
+    static async updateDoctorById(doctor: any) {
+        return await dbConnection
+            .then(async connection2 => {
+                let data = await connection2.manager.query(`call update_doctor(${doctor.id},'${doctor.full_name}','${doctor.education}',${doctor.experience},'${doctor.licence_no}','${doctor.gender}')`);
+                return data;
+            });
+    }
 }

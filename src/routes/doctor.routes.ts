@@ -12,6 +12,7 @@ class DoctorRoutes {
         this.doctorRouter.post('/', DoctorController.addDoctor);
         this.doctorRouter.get('/', DoctorController.getDoctors);
         this.doctorRouter.get('/:id', DoctorController.getDoctorById);
+        this.doctorRouter.put('/:id', DoctorController.updateDoctorById);
     }
 }
 

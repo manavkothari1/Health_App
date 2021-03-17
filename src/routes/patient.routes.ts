@@ -12,6 +12,7 @@ class PatientRoutes {
         this.patientRouter.post('/', PatientController.addPatient);
         this.patientRouter.get('/', PatientController.getPatients);
         this.patientRouter.get('/:id', PatientController.getPatientsById);
+        this.patientRouter.put('/:id', PatientController.updatePatientById);
     }
 }
 

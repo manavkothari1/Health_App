@@ -13,7 +13,7 @@ export class PatientService {
     static async addPatient(patient:any)  {
         return await dbConnection
         .then(async connection2 => {
-           let data= await connection2.manager.query(`CALL add_patient('${patient.full_name}'::varchar(100) ,${patient.age},false,'${patient.gender}' ,'${patient.email}'::varchar(100) ,'${patient.password}'::varchar(100) ,'patient');`);
+           let data= await connection2.manager.query(`CALL add_patient('${patient.full_name}'::varchar(100) ,${patient.age},${patient.physical_handicapped},'${patient.gender}' ,'${patient.email}'::varchar(100) ,'${patient.password}'::varchar(100) ,'patient');`);
            return data;
         })
     }
@@ -30,6 +30,15 @@ export class PatientService {
         return await dbConnection
             .then(async connection2 => {
                 let data = await connection2.manager.query(`select * from get_patient(${id})`);
+                return data;
+            });
+    }
+
+    static async updatePatientById(patient: any) {
+        console.log(`call update_patient(${patient.id},'${patient.full_name}',${patient.age},${patient.physical_handicapped},'${patient.gender}')`);
+        return await dbConnection
+            .then(async connection2 => {
+                let data = await connection2.manager.query(`call update_patient(${patient.id},'${patient.full_name}',${patient.age},${patient.physical_handicapped},'${patient.gender}')`);
                 return data;
             });
     }
