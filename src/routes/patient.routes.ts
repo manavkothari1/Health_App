@@ -11,7 +11,7 @@ class PatientRoutes {
         this.patientRouter = express.Router();
         this.patientRouter.post('/', PatientController.addPatient);
         this.patientRouter.get('/', PatientController.getPatients);
-        this.patientRouter.get('/:id', PatientController.getPatient);
+        this.patientRouter.get('/:id', PatientController.getPatientsById);
     }
 }
 
