@@ -1,10 +1,10 @@
 import {createConnection,Connection} from "typeorm";
 require('custom-env').env('test'); 
 import {user} from '../entity/User';
-
+ 
 class DB {
     public connection: Promise<Connection>;
-
+ 
     /**
     * initalizing db connection
     */ 
@@ -17,10 +17,12 @@ class DB {
             password:  process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
             entities: [user],
-            ssl:false
+            ssl: {
+                rejectUnauthorized: false
+            }
         });
     }
 }
-
+ 
 const dbConnection = new DB().connection;
 export { dbConnection };

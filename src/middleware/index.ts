@@ -1,6 +1,7 @@
 import express ,{Express} from 'express';
 import { corsMiddleware } from './cors';
 import { bodyParserMiddleware } from './body-parser';
+import { helmetMiddleware } from './helmet';
 
 class Middleware {
     public app: Express;
@@ -12,6 +13,7 @@ class Middleware {
         this.app = express();
         this.app.use(corsMiddleware);
         this.app.use(bodyParserMiddleware);
+        this.app.use(helmetMiddleware)
     }
 }
 
