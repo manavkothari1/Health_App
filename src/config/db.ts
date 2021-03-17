@@ -17,7 +17,9 @@ class DB {
             password:  process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
             entities: [user],
-            ssl:false
+            ssl:{
+                rejectUnauthorized:false
+            }
         });
     }
 }

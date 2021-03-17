@@ -9,7 +9,7 @@ class UserRoutes {
      */
     constructor() {
         this.userRouter = express.Router();
-        this.userRouter.get('/', UserController.getUser);
+        this.userRouter.post('/', UserController.addUser);
     }
 }
 
