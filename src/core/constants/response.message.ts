@@ -9,6 +9,7 @@ export const MESSAGES = {
         USER_ALREADY_EXIST:'user already exists!',
         ALL_FIELD_REQUIRED:'all fields required!',
         ID_REQUIRED:'id required!',
-        SOMETHING_WENT_WRONG:'something went wrong!'
+        SOMETHING_WENT_WRONG:'something went wrong!',
+        INVALID_USER_TYPE:'Invalid User Type'
     }
 }

@@ -9,21 +9,10 @@ export class UserService {
     /**
      * get user by id
      */
-    static async getUser()  {
+    static async getUser(limit : number, offset : number)  {
         return await dbConnection
         .then(async connection2 => {
-           let data= await connection2.manager.find(user);
-           return data;
-        })
-    }
-
-    /**
-     * add user by id
-     */
-     static async addUser()  {
-        return await dbConnection
-        .then(async connection2 => {
-           let data= await connection2.manager.find(user);
+           let data= await connection2.manager.query(`select * from public.user order by id asc limit ${limit} offset ${offset}`);
            return data;
         })
     }

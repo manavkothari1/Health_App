@@ -9,7 +9,9 @@ class DoctorRoutes {
      */
     constructor() {
         this.doctorRouter = express.Router();
-        this.doctorRouter.get('/', DoctorController.getDoctorUser);
+        this.doctorRouter.post('/', DoctorController.addDoctor);
+        this.doctorRouter.get('/', DoctorController.getDoctors);
+        this.doctorRouter.get('/:id', DoctorController.getDoctorById);
     }
 }
 

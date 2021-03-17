@@ -1,5 +1,5 @@
 import {Column, Entity, PrimaryColumn} from "typeorm";
-import Gender from './enums/gender'
+import UserType from './enums/usertype'
 @Entity()
 export class user {
 
@@ -13,7 +13,7 @@ export class user {
     password?: string | null;
 
     @Column({type: 'character', nullable: true })
-    type?: Gender | null;
+    type?: UserType | null;
 
     @Column({type: 'boolean', nullable: true })
     verified?: boolean | null;
