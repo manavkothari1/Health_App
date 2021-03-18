@@ -1,6 +1,4 @@
-import { Connection } from "typeorm";
 import { dbConnection } from '../config/db';
-import { patient_profile } from '../entity/patient';
 
 export class PatientService {
     

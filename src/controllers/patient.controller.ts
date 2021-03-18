@@ -20,12 +20,12 @@ export class PatientController {
                 age,
                 password:hashPassword
             })
-            Utils.sendResponse(res, {
+            return Utils.sendResponse(res, {
                 message: MESSAGES.SUCCESS.USER_ADDED
             })
         } catch (e) {
             console.log(e);
-            Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -35,12 +35,12 @@ export class PatientController {
             const offset: string = req.query.offset?.toString() || "0";
 
             const patientProfiles = await PatientService.getPatients(parseInt(limit), parseInt(offset));
-            Utils.sendResponse(res, {
+            return Utils.sendResponse(res, {
                 patientProfiles
             })
         } catch (e) {
             console.log(e);
-            Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -50,12 +50,12 @@ export class PatientController {
 
             const patient = await PatientService.getPatientById(id);
 
-            Utils.sendResponse(res, {
+            return Utils.sendResponse(res, {
                 patient
             })
         } catch (e) {
             console.log(e);
-            Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -74,12 +74,12 @@ export class PatientController {
 
             const patient = await PatientService.getPatientById(id);
 
-            Utils.sendResponse(res, {
+            return Utils.sendResponse(res, {
                 patient
             })
         } catch (e) {
             console.log(e);
-            Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 }

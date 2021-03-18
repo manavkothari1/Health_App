@@ -1,12 +1,21 @@
 import { NextFunction, Request, Response } from 'express';
-import { UserSchema, DoctorSchema, PatientSchema, DoctorUpdateSchema, PatientUpdateSchema, IdSchema, PaginationSchema } from '../schemas';
+import { AuthSchema, UserSchema, DoctorSchema, PatientSchema, DoctorUpdateSchema, PatientUpdateSchema, IdSchema, PaginationSchema } from '../schemas';
 import { Utils } from '../utils';
 import { STATUS } from '../../core/constants/status.code';
-
+import { IRequest } from '../../core/models';
 export class Validator {
     constructor() {
     }
 
+    static async AuthValidator(req: Request, res: Response, next: NextFunction) {
+        try {
+            await AuthSchema.validateAsync(req.body);
+            next();
+        } catch (err) {
+            console.log(err);
+            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+        }
+    }
     static async idValidator(req: Request, res: Response, next: NextFunction) {
         try {
             console.log(req.params);

@@ -19,12 +19,12 @@ export class DoctorController {
                 licence_no,
                 password:hashPassword
             })
-            Utils.sendResponse(res, {
+            return Utils.sendResponse(res, {
                 message: MESSAGES.SUCCESS.USER_ADDED
             })
         } catch (e) {
             console.log(e);
-            Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -35,12 +35,12 @@ export class DoctorController {
 
             const doctorProfiles = await DoctorService.getDoctors(parseInt(limit),parseInt(offset));
             console.log(doctorProfiles);
-            Utils.sendResponse(res,{
+            return Utils.sendResponse(res,{
                 doctorProfiles
             })
         }catch(e){
             console.log(e);
-            Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            return Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -50,12 +50,12 @@ export class DoctorController {
 
             const doctor = await DoctorService.getDoctorById(id);
 
-            Utils.sendResponse(res,{
+            return Utils.sendResponse(res,{
                 doctor
             })
         }catch(e){
             console.log(e);
-            Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            return Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -71,12 +71,12 @@ export class DoctorController {
 
             const doctor = await DoctorService.getDoctorById(id);
 
-            Utils.sendResponse(res,{
+            return Utils.sendResponse(res,{
                 doctor
             })
         }catch(e){
             console.log(e);
-            Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            return Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 

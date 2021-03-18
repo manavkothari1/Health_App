@@ -3,27 +3,33 @@ import * as jwt from "jsonwebtoken";
 import { Utils } from '../utils';
 import { MESSAGES } from '../../core/constants/response.message';
 import { STATUS } from '../../core/constants/status.code';
-import { IRequest} from '../../core/models';
-class Auth {
-static async checkJwt(req: IRequest, res: Response, next: NextFunction){
-    const token = <string>req.headers["Authorization"];
-    let jwtPayload;
+import { rearg } from "lodash";
+// import { IRequest } from '../../core/models';
+class JwtToken {
+  static async checkJwt(req: Request, res: Response, next: NextFunction):Promise<any> {
+    const token  = <string>req.headers["authorization"];
+
+    if(!token){
+      return Utils.sendError(res, STATUS.NOT_AUTHORIZATION, MESSAGES.ERROR.AUTHENTICATION_ERROR);
+    }
+
     try {
-      jwtPayload =jwt.verify(token, "jwt-secret");
-      req.user = jwtPayload;
+      let jwtPayload = await jwt.verify(token, "jwt-secret");
+      if(!jwtPayload){
+        return Utils.sendError(res, STATUS.NOT_AUTHORIZATION, MESSAGES.ERROR.AUTHENTICATION_ERROR);
+      }
       next();
     } catch (error) {
-      Utils.sendError(res,STATUS.NOT_AUTHORIZATION,MESSAGES.ERROR.AUTHENTICATION_ERROR)
-      return;
+      return Utils.sendError(res, STATUS.NOT_AUTHORIZATION, MESSAGES.ERROR.AUTHENTICATION_ERROR);
     }
   }
-
-  static generateJwt(obj:any):string{
-  const newToken = jwt.sign(obj, "jwt-secret", {
-    expiresIn: "1d"
-  });
-  return newToken;
+  
+  static generateJwt(obj: any): string {
+    const newToken = jwt.sign(obj, "jwt-secret", {
+      expiresIn: "1d"
+    });
+    return newToken;
+  }
 }
-}
 
-export { Auth };
+export { JwtToken };

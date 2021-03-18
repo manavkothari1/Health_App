@@ -1,6 +1,7 @@
 import express from 'express';
 import { PatientController } from '../controllers/patient.controller';
 import {Validator} from '../utils/validator/Validator';
+import {JwtToken} from '../utils/auth';
 
 class PatientRoutes {
     public patientRouter: express.Router;
@@ -10,6 +11,7 @@ class PatientRoutes {
      */
     constructor() {
         this.patientRouter = express.Router();
+        this.patientRouter.use(JwtToken.checkJwt);
         this.patientRouter.post('/',Validator.patientValidator, PatientController.addPatient);
         this.patientRouter.get('/',Validator.paginationValidator, PatientController.getPatients);
         this.patientRouter.get('/id/:id',Validator.idValidator, PatientController.getPatientsById);

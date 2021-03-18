@@ -17,4 +17,12 @@ export class UserService {
         })
     }
 
+    
+   static async getUserByEmail(email:string)  {
+       return await dbConnection
+       .then(async connection2 => {
+          let data= await connection2.manager.query(`select id,email,password from public.user where email='${email}'`);
+          return data && data[0];
+       })
+   }
 }
