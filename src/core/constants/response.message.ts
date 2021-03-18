@@ -9,7 +9,8 @@ export const MESSAGES = {
         USER_ALREADY_EXIST:'user already exists!',
         ALL_FIELD_REQUIRED:'all fields required!',
         ID_REQUIRED:'id required!',
-        UNAUTHENTICATION : 'access denied !',
-        SOMETHING_WENT_WRONG:'something went wrong!'
+        AUTHENTICATION_ERROR : 'access denied !',
+        SOMETHING_WENT_WRONG:'something went wrong!',
+        INVALID_USER_TYPE:'Invalid User Type'
     }
 }

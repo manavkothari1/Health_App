@@ -28,7 +28,7 @@ class App {
         /**
          * default route to check the server base url
          */
-        this.app.use('/', (req: Request, res: Response, next: NextFunction) => {
+         this.app.use('/', (req: Request, res: Response, next: NextFunction) => {
             res.json({ message: 'SERVER CONNECTED' });
             next();
         });

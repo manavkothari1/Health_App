@@ -1,5 +1,6 @@
 import express from 'express';
 import { PatientController } from '../controllers/patient.controller';
+import {Validator} from '../utils/validator/Validator';
 
 class PatientRoutes {
     public patientRouter: express.Router;
@@ -9,7 +10,10 @@ class PatientRoutes {
      */
     constructor() {
         this.patientRouter = express.Router();
-        this.patientRouter.get('/', PatientController.getPatient);
+        this.patientRouter.post('/',Validator.patientValidator, PatientController.addPatient);
+        this.patientRouter.get('/',Validator.paginationValidator, PatientController.getPatients);
+        this.patientRouter.get('/id/:id',Validator.idValidator, PatientController.getPatientsById);
+        this.patientRouter.put('/:id',Validator.idValidator,Validator.patientUpdateValidator, PatientController.updatePatientById);
     }
 }
 

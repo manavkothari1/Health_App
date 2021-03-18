@@ -1,5 +1,6 @@
 import express from 'express';
 import { DoctorController } from '../controllers/doctor.controller';
+import { Validator } from '../utils/validator/Validator';
 
 class DoctorRoutes {
     public doctorRouter: express.Router;
@@ -9,7 +10,10 @@ class DoctorRoutes {
      */
     constructor() {
         this.doctorRouter = express.Router();
-        this.doctorRouter.get('/', DoctorController.getDoctorUser);
+        this.doctorRouter.post('/',Validator.doctorValidator, DoctorController.addDoctor);
+        this.doctorRouter.get('/id/:id',Validator.idValidator, DoctorController.getDoctorById);
+        this.doctorRouter.get('/',Validator.paginationValidator, DoctorController.getDoctors);
+        this.doctorRouter.put('/:id',Validator.idValidator, Validator.doctorUpdateValidator, DoctorController.updateDoctorById);
     }
 }
 

@@ -10,8 +10,7 @@ export class Utils {
      * @param res response
      * @param responseObj  response object which need to be sent
      */
-    static sendResponse(res: Response, responseObj: User | User[] | { message: string } | void | null | undefined): Response {
-        console.log('response', responseObj);
+    static sendResponse(res: Response, responseObj: any): Response {
         return res.status(200).json(responseObj);
     }
 
