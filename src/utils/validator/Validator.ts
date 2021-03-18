@@ -13,7 +13,7 @@ export class Validator {
             await IdSchema.validateAsync(req.params);
             next()
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
         }
     }

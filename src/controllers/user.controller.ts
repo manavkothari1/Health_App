@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response,NextFunction, } from 'express';
 import { DoctorService } from '../services/doctor.service';
 import { PatientService } from '../services/patient.service';
 import { MESSAGES } from '../core/constants/response.message';
@@ -11,7 +11,6 @@ export class UserController {
 
     static async addUser(req: Request, res: Response): Promise<Response | void> {
         try {
-            console.log(req);
             const { full_name, gender, email, physical_handicapped, password, age, utype, experience, education, licence_no } = req.body;
 
             if (utype == 'doctor') {
@@ -26,6 +25,7 @@ export class UserController {
                 return Utils.sendResponse(res, {
                     message: MESSAGES.SUCCESS.USER_ADDED
                 })
+              
             }
 
             if (utype == 'patient') {
@@ -40,8 +40,9 @@ export class UserController {
                 return Utils.sendResponse(res, {
                     message: MESSAGES.SUCCESS.USER_ADDED
                 })
+               
             }
-
+           
             return Utils.sendError(res, STATUS.NOT_FOUND, MESSAGES.ERROR.INVALID_USER_TYPE)
         } catch (e) {
             console.log(e);
