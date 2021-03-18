@@ -9,8 +9,9 @@ export class Validator {
 
     static async idValidator(req: Request, res: Response, next: NextFunction) {
         try {
+            console.log(req.params);
             await IdSchema.validateAsync(req.params);
-            next(req.body)
+            next()
         } catch (err) {
             console.log(err);
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
@@ -20,7 +21,7 @@ export class Validator {
     static async paginationValidator(req: Request, res: Response, next: NextFunction) {
         try {
             await PaginationSchema.validateAsync(req.query);
-            next(req.body)
+            next()
         } catch (err) {
             console.log(err);
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
@@ -30,7 +31,7 @@ export class Validator {
     static async userValidator(req: Request, res: Response, next: NextFunction) {
         try {
             await UserSchema.validateAsync(req.body);
-            next(req.body)
+            next()
         } catch (err) {
             console.log(err);
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
@@ -40,7 +41,7 @@ export class Validator {
     static async doctorValidator(req: Request, res: Response, next: NextFunction) {
         try {
             await DoctorSchema.validateAsync(req.body);
-            next(req.body)
+            next()
         } catch (err) {
             console.log(err);
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
@@ -50,7 +51,7 @@ export class Validator {
     static async doctorUpdateValidator(req: Request, res: Response, next: NextFunction) {
         try {
             await DoctorUpdateSchema.validateAsync(req.body);
-            next(req.body)
+            next()
         } catch (err) {
             console.log(err);
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
@@ -60,7 +61,7 @@ export class Validator {
     static async patientValidator(req: Request, res: Response, next: NextFunction) {
         try {
             await PatientSchema.validateAsync(req.body);
-            next(req.body)
+            next()
         } catch (err) {
             console.log(err);
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
@@ -70,7 +71,7 @@ export class Validator {
     static async patientUpdateValidator(req: Request, res: Response, next: NextFunction) {
         try {
             await PatientUpdateSchema.validateAsync(req.body);
-            next(req.body)
+            next()
         } catch (err) {
             console.log(err);
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)

@@ -12,8 +12,8 @@ class PatientRoutes {
         this.patientRouter = express.Router();
         this.patientRouter.post('/',Validator.patientValidator, PatientController.addPatient);
         this.patientRouter.get('/',Validator.paginationValidator, PatientController.getPatients);
-        this.patientRouter.get('/:id',Validator.idValidator,Validator.patientUpdateValidator, PatientController.getPatientsById);
-        this.patientRouter.put('/:id',Validator.idValidator, PatientController.updatePatientById);
+        this.patientRouter.get('/id/:id',Validator.idValidator, PatientController.getPatientsById);
+        this.patientRouter.put('/:id',Validator.idValidator,Validator.patientUpdateValidator, PatientController.updatePatientById);
     }
 }
 

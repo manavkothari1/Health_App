@@ -61,7 +61,7 @@ export class PatientController {
         try{
             const id :string = req.params.id;
             const { full_name,gender,age,physical_handicapped} = req.body;
-
+            console.log(req.body);
             await PatientService.updatePatientById({
                 id,
                 full_name,

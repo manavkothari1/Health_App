@@ -11,6 +11,7 @@ export class UserController {
 
     static async addUser(req: Request, res: Response): Promise<Response | void> {
         try {
+            console.log(req);
             const { full_name, gender, email, physical_handicapped, password, age, utype, experience, education, licence_no } = req.body;
 
             if (utype == 'doctor') {
