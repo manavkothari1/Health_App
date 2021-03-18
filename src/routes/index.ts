@@ -1,6 +1,6 @@
 import express from 'express';
 import { userRoutes } from './user.routes';
-
+import { patientRoutes } from './patient.route';
 class Router {
     public router: express.Router;
 
@@ -10,6 +10,7 @@ class Router {
     constructor() {
         this.router = express.Router();
         this.router.use('/user', userRoutes);
+        this.router.use('/patient', patientRoutes);
     }
 }
 

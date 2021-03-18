@@ -11,7 +11,6 @@ export class Utils {
      * @param responseObj  response object which need to be sent
      */
     static sendResponse(res: Response, responseObj: User | User[] | { message: string } | void | null | undefined): Response {
-        console.log('response', responseObj);
         return res.status(200).json(responseObj);
     }
 
