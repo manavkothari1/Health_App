@@ -34,6 +34,7 @@ export class DoctorController {
             const offset: string = req.query.offset?.toString() || "0";
 
             const doctorProfiles = await DoctorService.getDoctors(parseInt(limit),parseInt(offset));
+            console.log(doctorProfiles);
             return Utils.sendResponse(res,{
                 doctorProfiles
             })

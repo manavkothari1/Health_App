@@ -24,7 +24,7 @@ export class DoctorService {
      static async getDoctors(limit:number, offset : number) {
         return await dbConnection
             .then(async connection2 => {
-                let data = await connection2.manager.query(`select * from doctor_profile as dct inner join public.user as usr on (dct.user_id=usr.id) ORDER BY dct.id asc limit ${limit} offset ${offset}`);
+                let data = await connection2.manager.query(`select * from get_doctor(null,${limit},${offset})`);
                 return data;
             })
     }
