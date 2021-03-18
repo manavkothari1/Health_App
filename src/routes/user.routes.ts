@@ -12,7 +12,7 @@ class UserRoutes {
 
         this.userRouter = express.Router();
         this.userRouter.post('/', Validator.userValidator,UserController.addUser);
-        this.userRouter.get('/', UserController.getUser);
+        this.userRouter.get('/',Validator.paginationValidator, UserController.getUser);
     }
 }
 
