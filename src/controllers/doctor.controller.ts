@@ -3,13 +3,13 @@ import { Utils } from '../utils/utils';
 import { DoctorService } from '../services/doctor.service';
 import { MESSAGES } from '../core/constants/response.message';
 import { STATUS } from '../core/constants/status.code';
-
+import {Password} from '../utils/auth/Password';
 export class DoctorController {
-    constructor() { }
-
     static async addDoctor(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
             const { full_name, gender, email, password, experience, education, licence_no } = req.body;
+            const hashPassword = await Password.encrypt(password);
+
             await DoctorService.addDoctor({
                 email,
                 full_name,
@@ -17,14 +17,14 @@ export class DoctorController {
                 experience,
                 education,
                 licence_no,
-                password
+                password:hashPassword
             })
-            return Utils.sendResponse(res, {
+            Utils.sendResponse(res, {
                 message: MESSAGES.SUCCESS.USER_ADDED
             })
         } catch (e) {
             console.log(e);
-            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -35,12 +35,12 @@ export class DoctorController {
 
             const doctorProfiles = await DoctorService.getDoctors(parseInt(limit),parseInt(offset));
             console.log(doctorProfiles);
-            return Utils.sendResponse(res,{
+            Utils.sendResponse(res,{
                 doctorProfiles
             })
         }catch(e){
             console.log(e);
-            return Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -50,12 +50,12 @@ export class DoctorController {
 
             const doctor = await DoctorService.getDoctorById(id);
 
-            return Utils.sendResponse(res,{
+            Utils.sendResponse(res,{
                 doctor
             })
         }catch(e){
             console.log(e);
-            return Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
@@ -71,12 +71,12 @@ export class DoctorController {
 
             const doctor = await DoctorService.getDoctorById(id);
 
-            return Utils.sendResponse(res,{
+            Utils.sendResponse(res,{
                 doctor
             })
         }catch(e){
             console.log(e);
-            return Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            Utils.sendError(res,STATUS.INTERNAL_SERVER_ERROR,MESSAGES.ERROR.SOMETHING_WENT_WRONG)
         }
     }
 
