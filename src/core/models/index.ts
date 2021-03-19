@@ -1,4 +1,6 @@
 import { User } from './User';
-import {IRequest} from './IRequest';
+import { Patient } from './Patient';
+import { Doctor } from './Doctor';
+import { IRequest } from './IRequest';
 
-export { User,IRequest };
+export { User, IRequest, Patient, Doctor };

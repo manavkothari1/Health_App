@@ -6,7 +6,14 @@ import { STATUS } from '../../core/constants/status.code';
 import { rearg } from "lodash";
 // import { IRequest } from '../../core/models';
 class JwtToken {
-  static async checkJwt(req: Request, res: Response, next: NextFunction):Promise<any> {
+  /**
+   * check jwt token verify token
+   * @param req request 
+   * @param res response
+   * @param next next
+   * @returns return void
+   */
+  static async checkJwt(req: Request, res: Response, next: NextFunction):Promise<Response | void> {
     const token  = <string>req.headers["authorization"];
 
     if(!token){
@@ -24,7 +31,12 @@ class JwtToken {
     }
   }
   
-  static generateJwt(obj: any): string {
+  /**
+   * generate token from object
+   * @param obj user object
+   * @returns return token
+   */
+  static async generateJwt(obj: Object): Promise<string> {
     const newToken = jwt.sign(obj, "jwt-secret", {
       expiresIn: "1d"
     });

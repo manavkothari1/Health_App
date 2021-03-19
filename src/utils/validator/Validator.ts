@@ -3,10 +3,15 @@ import { AuthSchema, UserSchema, DoctorSchema, PatientSchema, DoctorUpdateSchema
 import { Utils } from '../utils';
 import { STATUS } from '../../core/constants/status.code';
 export class Validator {
-    constructor() {
-    }
 
-    static async AuthValidator(req: Request, res: Response, next: NextFunction) {
+    /**
+     * Auth Validator
+     * @param req request
+     * @param res response
+     * @param next next function
+     * @returns return next function or error
+     */
+    static async AuthValidator(req: Request, res: Response, next: NextFunction):Promise<Response | void> {
         try {
             await AuthSchema.validateAsync(req.body);
             next();
@@ -15,7 +20,14 @@ export class Validator {
             return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
         }
     }
-    static async idValidator(req: Request, res: Response, next: NextFunction) {
+    /**
+     * Validate id for params
+     * @param req request
+     * @param res response
+     * @param next next
+     * @returns return success or error
+     */
+    static async idValidator(req: Request, res: Response, next: NextFunction):Promise<Response | void> {
         try {
             console.log(req.params);
             await IdSchema.validateAsync(req.params);
@@ -26,7 +38,14 @@ export class Validator {
         }
     }
 
-    static async paginationValidator(req: Request, res: Response, next: NextFunction) {
+    /**
+     * pagination validator
+     * @param req request
+     * @param res response
+     * @param next next function
+     * @returns return next or error
+     */
+    static async paginationValidator(req: Request, res: Response, next: NextFunction):Promise<Response | void> {
         try {
             await PaginationSchema.validateAsync(req.query);
             next()
@@ -36,7 +55,14 @@ export class Validator {
         }
     }
     
-    static async userValidator(req: Request, res: Response, next: NextFunction) {
+    /**
+     * user payload validator
+     * @param req request
+     * @param res response
+     * @param next next function
+     * @returns 
+     */
+    static async userValidator(req: Request, res: Response, next: NextFunction):Promise<Response | void> {
         try {
             await UserSchema.validateAsync(req.body);
             next()
@@ -46,7 +72,14 @@ export class Validator {
         }
     }
 
-    static async doctorValidator(req: Request, res: Response, next: NextFunction) {
+    /**
+     * doctor validator for doctor payload
+     * @param req request
+     * @param res response
+     * @param next next function
+     * @returns return success or error
+     */
+    static async doctorValidator(req: Request, res: Response, next: NextFunction):Promise<Response | void> {
         try {
             await DoctorSchema.validateAsync(req.body);
             next()
@@ -56,7 +89,14 @@ export class Validator {
         }
     }
 
-    static async doctorUpdateValidator(req: Request, res: Response, next: NextFunction) {
+    /**
+     * doctor update payload validator
+     * @param req request
+     * @param res response
+     * @param next next function
+     * @returns return success or failure
+     */
+    static async doctorUpdateValidator(req: Request, res: Response, next: NextFunction) :Promise<Response | void>{
         try {
             await DoctorUpdateSchema.validateAsync(req.body);
             next()
@@ -66,7 +106,14 @@ export class Validator {
         }
     }
 
-    static async patientValidator(req: Request, res: Response, next: NextFunction) {
+    /**
+     * patient validator
+     * @param req request
+     * @param res response
+     * @param next next function
+     * @returns return success or failure
+     */
+    static async patientValidator(req: Request, res: Response, next: NextFunction):Promise<Response | void> {
         try {
             await PatientSchema.validateAsync(req.body);
             next()
@@ -76,7 +123,14 @@ export class Validator {
         }
     }
 
-    static async patientUpdateValidator(req: Request, res: Response, next: NextFunction) {
+    /**
+     * patient update validator
+     * @param req request
+     * @param res response
+     * @param next next function
+     * @returns 
+     */
+    static async patientUpdateValidator(req: Request, res: Response, next: NextFunction):Promise<Response | void> {
         try {
             await PatientUpdateSchema.validateAsync(req.body);
             next()
