@@ -1,5 +1,6 @@
 import { Connection } from "typeorm";
 import { dbConnection } from '../config/db';
+import { Doctor, User } from "../core/models";
 import { doctor_profile } from '../entity/doctor';
 
 export class DoctorService {
@@ -10,7 +11,7 @@ export class DoctorService {
     /**
      * get user by id
      */
-    static async addDoctor(doctor: any) {
+    static async addDoctor(doctor: Doctor | User) {
         return await dbConnection
             .then(async connection2 => {
                 let data = await connection2.manager.query(`CALL add_doctor('${doctor.full_name}'::varchar(100) ,'${doctor.gender}' ,'${doctor.email}'::varchar(100) ,'${doctor.password}'::varchar(100) ,'doctor',${doctor.experience},'${doctor.education}','${doctor.licence_no}');`);

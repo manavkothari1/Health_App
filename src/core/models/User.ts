@@ -1,5 +1,5 @@
 export interface User {
-    id?:number,
+    id?:number | string,
     full_name: string,
     gender:'male'|'female',
     utype:'doctor'|'patient',

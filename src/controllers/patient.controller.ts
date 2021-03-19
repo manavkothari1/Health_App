@@ -45,7 +45,7 @@ export class PatientController {
             const offset: string = req.query.offset?.toString() || "0";
 
             const patientProfiles: Patient[] = await PatientService.getPatients(parseInt(limit), parseInt(offset));
-           
+
             return Utils.sendResponse(res, {
                 patientProfiles
             })
@@ -65,7 +65,7 @@ export class PatientController {
         try {
             const id: string = req.params.id;
 
-            const patient: Patient = await PatientService.getPatientById(id);
+            const patient: Patient | null | undefined = await PatientService.getPatientById(id);
 
             return Utils.sendResponse(res, {
                 patient
@@ -96,7 +96,7 @@ export class PatientController {
                 age: number,
                 physical_handicapped: boolean
             } = req.body;
-            
+
             await PatientService.updatePatientById({
                 id,
                 full_name,
@@ -105,7 +105,7 @@ export class PatientController {
                 age
             });
 
-            const patient:Patient = await PatientService.getPatientById(id);
+            const patient: Patient | undefined | null = await PatientService.getPatientById(id);
 
             return Utils.sendResponse(res, {
                 patient

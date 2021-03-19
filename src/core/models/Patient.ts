@@ -1,9 +1,9 @@
 export interface Patient {
-    id?:number,
+    id?:number | string,
     full_name: string,
     gender:'male'|'female',
-    age:number,
+    age?:number,
     physical_handicapped:boolean,
     password:string,
-    email:string
+    email?:string
 }

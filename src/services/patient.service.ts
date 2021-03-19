@@ -1,5 +1,5 @@
 import { dbConnection } from '../config/db';
-import { Patient } from '../core/models';
+import { Patient, User } from '../core/models';
 
 export class PatientService {
 
@@ -8,7 +8,7 @@ export class PatientService {
      * @param patient add patient payload 
      * @returns return patient
      */
-    static async addPatient(patient: Patient): Promise<Patient | void> {
+    static async addPatient(patient: Patient | User): Promise<Patient | void> {
         return await dbConnection
             .then(async connection2 => {
                 let data = await connection2.manager.query(`CALL add_patient('${patient.full_name}'::varchar(100) ,${patient.age},${patient.physical_handicapped},'${patient.gender}' ,'${patient.email}'::varchar(100) ,'${patient.password}'::varchar(100) ,'patient');`);
@@ -48,7 +48,13 @@ export class PatientService {
      * @param patient patient object
      * @returns return null
      */
-    static async updatePatientById(patient: Patient): Promise<Patient | void | null> {
+    static async updatePatientById(patient: {
+        id:string,
+        full_name: string,
+        gender: 'male' | 'female',
+        age: number,
+        physical_handicapped: boolean
+    }): Promise<Patient | void | null> {
         console.log(`call update_patient(${patient.id},'${patient.full_name}',${patient.age},${patient.physical_handicapped},'${patient.gender}')`);
         return await dbConnection
             .then(async connection2 => {

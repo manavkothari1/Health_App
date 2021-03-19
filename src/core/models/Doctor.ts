@@ -1,5 +1,5 @@
 export interface Doctor {
-    id?:number,
+    id?:number |  string,
     full_name: string,
     gender:'male'|'female',
     experience?:number,

@@ -19,7 +19,7 @@ export class UserController {
     static async login(req: Request, res: Response): Promise<Response | void> {
         try {
             const { email, password }: { email: string, password: string } = req.body;
-            const user: User = await UserService.getUserByEmail(email);
+            const user: User | undefined | null = await UserService.getUserByEmail(email);
            
             if (!user) {
                 return Utils.sendError(res, STATUS.NOT_FOUND, MESSAGES.ERROR.INVALID_CRED)
