@@ -14,9 +14,9 @@ describe('checking user middleware',()=>{
         };
     });
 
-    test('1. success User',async ()=>{
+    test('1. Successfully add user',async ()=>{
         mockRequest = {
-            params:{
+            body:{
                 "full_name":"hello",
                 "gender":"male",
                 "email":"hello@gmail.com",
@@ -32,22 +32,22 @@ describe('checking user middleware',()=>{
         expect(nextFunction).toBeCalled();
     });
 
-    // test('2. Fail User',async ()=>{
-    //     mockRequest = {
-    //         params:{
-    //             "full_name":"",
-    //             "gender":"male",
-    //             "email":"",
-    //             "password":"123123",
-    //             "age":"10",
-    //             "physical_handicapped":"false",
-    //             "utype":"patient",
-    //             "experience":"1",
-    //             "education":"mbbs",
-    //             "licence_no":"111"}
-    //     }
-    //     await Validator.userValidator(mockRequest as Request,mockResponse as Response,nextFunction);
-    //     console.log(mockResponse.status);
-    //     expect(mockResponse.status).toBeCalledWith(404);
-    // });
+    test('2. fail to add user',async ()=>{
+        mockRequest = {
+            body:{
+                "full_name":"",
+                "gender":"male",
+                "email":"",
+                "password":"123123",
+                "age":"10",
+                "physical_handicapped":"false",
+                "utype":"patient",
+                "experience":"1",
+                "education":"mbbs",
+                "licence_no":"111"}
+        }
+        await Validator.userValidator(mockRequest as Request,mockResponse as Response,nextFunction);
+        console.log(mockResponse.status);
+        expect(mockResponse.status).toBeCalledWith(404);
+    });
 })

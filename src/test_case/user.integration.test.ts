@@ -7,7 +7,7 @@ describe('checking middleware',()=>{
       
     });
     test('1. connected',async ()=>{
-        const result = await request(app).get('/');
+        const result = await request(app.a).get('/');
         expect(result.body).toEqual({message: 'SERVER CONNECTED'});
         expect(result.status).toEqual(200);
     });
@@ -16,6 +16,9 @@ describe('checking middleware',()=>{
         const result = await request(app).get('/employee');
         expect(result.status).toEqual(200);
         expect(result.body).toStrictEqual(expect.anything())
+    });
+    afterEach(async () => {
+        await app.server.close();;        
     });
 
 });

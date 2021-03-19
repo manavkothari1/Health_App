@@ -6,7 +6,7 @@ require('custom-env').env('test');
 
 class App {
     public app: Express;
-    private server: Server;
+    public server: Server;
     private port: number | string | undefined;
 
     constructor() {
@@ -48,4 +48,4 @@ class App {
 }
 
 // Creating the instance of app class
-export default new App().app;
+export default new App();

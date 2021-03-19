@@ -14,7 +14,7 @@ describe('checking doctor middleware',()=>{
         };
     });
 
-    test('1. success doctor',async ()=>{
+    test('1.Successfully add doctor',async ()=>{
         mockRequest = {
             body:{
                 "full_name":"Dr.NEHA",
@@ -32,7 +32,7 @@ describe('checking doctor middleware',()=>{
         expect(nextFunction).toBeCalled();
     });
 
-    test('1. fail doctor',async ()=>{
+    test('2. fail to add doctor',async ()=>{
         mockRequest = {
             body:{
                 "full_name":"Dr.NEHAL",
@@ -45,6 +45,40 @@ describe('checking doctor middleware',()=>{
             }
         }
         await Validator.doctorValidator(mockRequest as Request,mockResponse as Response,nextFunction)
+        expect(mockResponse.status).toBeCalledWith(404);
+    });
+
+    test('3. Successfully update doctor',async ()=>{
+        mockRequest = {
+            params:{
+                "id":"1",
+            },
+            body:{
+                "full_name":"manav",
+                "gender":"male",
+                "experience":1,
+                "education":"mbbs",
+                "licence_no":"111"
+            }
+        }
+        await Validator.doctorUpdateValidator(mockRequest as Request,mockResponse as Response,nextFunction)
+        expect(nextFunction).toBeCalled();
+    });
+
+    test('4. fail to update doctor',async ()=>{
+        mockRequest = {
+            params:{
+                "id":"1",
+            },
+            body:{
+                "full_name":"manav",
+                "gender":"other",
+                "experience":1,
+                "education":"mbbs",
+                "licence_no":"111"
+            }
+        }
+        await Validator.doctorUpdateValidator(mockRequest as Request,mockResponse as Response,nextFunction)
         expect(mockResponse.status).toBeCalledWith(404);
     });
 
