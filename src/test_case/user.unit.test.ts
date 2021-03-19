@@ -1,7 +1,7 @@
 import {NextFunction,Request,Response} from 'express';
 import { Validator } from '../utils/validator/Validator';
 
-describe('checking middleware',()=>{
+describe('checking user middleware',()=>{
 
     let mockRequest: Partial<Request>;
     let mockResponse: Partial<any>;
