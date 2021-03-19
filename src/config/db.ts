@@ -1,10 +1,10 @@
 import {createConnection,Connection} from "typeorm";
 require('custom-env').env('test'); 
 import {user} from '../entity/User';
-
+ 
 class DB {
     public connection: Promise<Connection>;
-
+ 
     /**
     * initalizing db connection
     */ 
@@ -23,6 +23,6 @@ class DB {
         });
     }
 }
-
+ 
 const dbConnection = new DB().connection;
 export { dbConnection };
