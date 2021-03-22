@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import { AuthSchema, UserSchema, DoctorSchema, PatientSchema, DoctorUpdateSchema, PatientUpdateSchema, IdSchema, PaginationSchema } from '../schemas';
 import { Utils } from '../utils';
 import { STATUS } from '../../core/constants/status.code';
+import {APIError } from './APIError';
+
 export class Validator {
 
     /**
@@ -17,7 +19,8 @@ export class Validator {
             next();
         } catch (err) {
             console.log(err);
-            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+            // next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
+            next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
         }
     }
     /**
@@ -34,7 +37,7 @@ export class Validator {
             next()
         } catch (err) {
             // console.log(err);
-            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+            next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
         }
     }
 
@@ -51,7 +54,7 @@ export class Validator {
             next()
         } catch (err) {
             console.log(err);
-            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+            next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
         }
     }
     
@@ -68,7 +71,7 @@ export class Validator {
             next()
         } catch (err) {
             console.log(err);
-            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+            next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
         }
     }
 
@@ -85,7 +88,7 @@ export class Validator {
             next()
         } catch (err) {
             console.log(err);
-            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+            next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
         }
     }
 
@@ -102,7 +105,7 @@ export class Validator {
             next()
         } catch (err) {
             console.log(err);
-            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+            next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
         }
     }
 
@@ -119,7 +122,7 @@ export class Validator {
             next()
         } catch (err) {
             console.log(err);
-            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+            next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
         }
     }
 
@@ -136,7 +139,7 @@ export class Validator {
             next()
         } catch (err) {
             console.log(err);
-            return Utils.sendError(res, STATUS.NOT_FOUND, err.details[0].message)
+            next(new APIError({message:err.details[0].message,status: STATUS.NOT_FOUND,isPublic:true}))
         }
     }
 }

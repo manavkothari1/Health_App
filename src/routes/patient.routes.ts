@@ -1,6 +1,6 @@
 import express from 'express';
 import { PatientController } from '../controllers/patient.controller';
-import {Validator} from '../utils/validator/Validator';
+import {Validator} from '../utils/errorHandler';
 import {JwtToken} from '../utils/auth';
 
 class PatientRoutes {

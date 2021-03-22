@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { PatientService } from '../services/patient.service';
 import { MESSAGES } from '../core/constants/response.message';
 import { STATUS } from '../core/constants/status.code';
 import { Utils } from '../utils/utils'
 import { Password } from '../utils/auth/Password';
 import { Patient } from '../core/models';
+import { APIError } from '../utils/errorHandler';
 
 export class PatientController {
     constructor() { }
@@ -15,7 +16,7 @@ export class PatientController {
      * @param res response
      * @returns return error or success
      */
-    static async addPatient(req: Request, res: Response): Promise<Response | void> {
+    static async addPatient(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
             let patient: Patient = req.body;
             const hashPassword: string = await Password.encrypt(patient.password);
@@ -29,7 +30,7 @@ export class PatientController {
             })
         } catch (e) {
             console.log(e);
-            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }
 
@@ -39,10 +40,10 @@ export class PatientController {
      * @param res response
      * @returns response
      */
-    static async getPatients(req: Request, res: Response): Promise<Response | void> {
+    static async getPatients(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
-            const limit: string = req.query.limit?.toString() || "10";
-            const offset: string = req.query.offset?.toString() || "0";
+            const limit: string = <string>req.query.limit;
+            const offset: string = <string>req.query.offset;
 
             const patientProfiles: Patient[] = await PatientService.getPatients(parseInt(limit), parseInt(offset));
 
@@ -51,7 +52,7 @@ export class PatientController {
             })
         } catch (e) {
             console.log(e);
-            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+            next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }
 
@@ -61,7 +62,7 @@ export class PatientController {
      * @param res response
      * @returns return success or error
      */
-    static async getPatientsById(req: Request, res: Response): Promise<Response | void> {
+    static async getPatientsById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
             const id: string = req.params.id;
 
@@ -72,7 +73,7 @@ export class PatientController {
             })
         } catch (e) {
             console.log(e);
-            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+           next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }
 
@@ -82,7 +83,7 @@ export class PatientController {
      * @param res response
      * @returns return success or error
      */
-    static async updatePatientById(req: Request, res: Response): Promise<Response | void> {
+    static async updatePatientById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
         try {
             const id: string = req.params.id;
             const {
@@ -112,7 +113,7 @@ export class PatientController {
             })
         } catch (e) {
             console.log(e);
-            return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
+           next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }
 }

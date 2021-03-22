@@ -1,5 +1,5 @@
 import {NextFunction,Request,Response} from 'express';
-import { Validator } from '../utils/validator/Validator';
+import { Validator } from '../utils/errorHandler';
 
 describe('checking doctor middleware',()=>{
 
