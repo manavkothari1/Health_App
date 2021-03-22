@@ -5,7 +5,7 @@ import { MESSAGES } from '../../core/constants/response.message';
 import { STATUS } from '../../core/constants/status.code';
 // import { IRequest } from '../../core/models';
 import { IRequest, IResponse } from '../../core/models';
-import { APIError } from '../errorHandler';
+import { APIError } from '../responseHandler';
 class JwtToken {
 
   /**

@@ -5,7 +5,7 @@ import { MESSAGES } from '../core/constants/response.message';
 import { STATUS } from '../core/constants/status.code';
 import { Password } from '../utils/auth/Password';
 import { Doctor } from '../core/models';
-import { APIError } from '../utils/errorHandler';
+import { APIError } from '../utils/responseHandler';
 
 export class DoctorController {
 

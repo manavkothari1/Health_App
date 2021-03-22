@@ -5,7 +5,7 @@ import { STATUS } from '../core/constants/status.code';
 import { Utils } from '../utils/utils'
 import { Password } from '../utils/auth/Password';
 import { Patient } from '../core/models';
-import { APIError } from '../utils/errorHandler';
+import { APIError } from '../utils/responseHandler';
 
 export class PatientController {
     constructor() { }

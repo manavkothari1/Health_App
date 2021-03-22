@@ -7,7 +7,7 @@ import { Utils } from '../utils/utils'
 import { UserService } from '../services/user.service';
 import { Password, JwtToken } from '../utils/auth';
 import { User, IRequest, IResponse } from '../core/models';
-import { APIError } from '../utils/errorHandler';
+import { APIError } from '../utils/responseHandler';
 
 export class UserController {
 
