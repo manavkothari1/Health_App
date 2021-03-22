@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, } from 'express';
+import { NextFunction, } from 'express';
 import { DoctorService } from '../services/doctor.service';
 import { PatientService } from '../services/patient.service';
 import { MESSAGES } from '../core/constants/response.message';
@@ -6,28 +6,28 @@ import { STATUS } from '../core/constants/status.code';
 import { Utils } from '../utils/utils'
 import { UserService } from '../services/user.service';
 import { Password, JwtToken } from '../utils/auth';
-import { User } from '../core/models';
+import { User, IRequest, IResponse } from '../core/models';
 import { APIError } from '../utils/errorHandler';
 
 export class UserController {
-    constructor() { }
+
     /**
      * user login api
-     * @param req request 
-     * @param res response
+     * @param req IRequest 
+     * @param res IResponse
      * @returns 
      */
-    static async login(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    static async login(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const { email, password }: { email: string, password: string } = req.body;
             const user: User = <User>await UserService.getUserByEmail(email);
-            
+
             if (!user) {
                 next(new APIError({ message: MESSAGES.ERROR.INVALID_CRED, status: STATUS.NOT_FOUND, isPublic: true }))
             }
 
             const isLogin: boolean = await Password.compare(password, user.password.trim());
-            
+
             if (!isLogin) {
                 next(new APIError({ message: MESSAGES.ERROR.INVALID_CRED, status: STATUS.NOT_FOUND, isPublic: true }))
             }
@@ -47,11 +47,11 @@ export class UserController {
 
     /**
      * Add User api user can be doctor or patient
-     * @param req request
-     * @param res response
+     * @param req IRequest
+     * @param res IResponse
      * @returns 
      */
-    static async addUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    static async addUser(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             let user: User = req.body;
 
@@ -80,11 +80,11 @@ export class UserController {
 
     /**
      * get users api with pagination
-     * @param req request
-     * @param res response
+     * @param req IRequest
+     * @param res IResponse
      * @returns 
      */
-    static async getUser(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    static async getUser(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const limit: string = <string>req.query.limit;
             const offset: string = <string>req.query.offset;
