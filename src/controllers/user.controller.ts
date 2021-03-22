@@ -34,11 +34,12 @@ export class UserController {
 
             const token: string = await JwtToken.generateJwt(user);
 
-            return Utils.sendResponse(res, {
+            res.success = {
                 message: MESSAGES.SUCCESS.LOGGED_IN,
                 user,
                 token
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
             next(new APIError({ message: MESSAGES.ERROR.INVALID_CRED, status: STATUS.NOT_AUTHORIZATION, isPublic: true }))
@@ -59,16 +60,18 @@ export class UserController {
 
             if (user.utype === 'doctor') {
                 await DoctorService.addDoctor(user)
-                return Utils.sendResponse(res, {
+                res.success = {
                     message: MESSAGES.SUCCESS.USER_ADDED
-                })
+                }
+                next();
             }
 
             if (user.utype === 'patient') {
                 await PatientService.addPatient(user)
-                return Utils.sendResponse(res, {
+                res.success = {
                     message: MESSAGES.SUCCESS.USER_ADDED
-                })
+                }
+                next();
             }
 
             next(new APIError({ message: MESSAGES.ERROR.INVALID_USER_TYPE, status: STATUS.NOT_FOUND, isPublic: true }))
@@ -90,9 +93,10 @@ export class UserController {
             const offset: string = <string>req.query.offset;
 
             const users: User[] = await UserService.getUser(parseInt(limit), parseInt(offset));
-            return Utils.sendResponse(res, {
+            res.success = {
                 users
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
             next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))

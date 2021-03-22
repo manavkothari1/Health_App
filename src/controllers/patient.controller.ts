@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction } from 'express';
 import { PatientService } from '../services/patient.service';
 import { MESSAGES } from '../core/constants/response.message';
 import { STATUS } from '../core/constants/status.code';
 import { Utils } from '../utils/utils'
 import { Password } from '../utils/auth/Password';
-import { Patient } from '../core/models';
+import { Patient,IResponse,IRequest } from '../core/models';
 import { APIError } from '../utils/responseHandler';
 
 export class PatientController {
@@ -16,7 +16,7 @@ export class PatientController {
      * @param res response
      * @returns return error or success
      */
-    static async addPatient(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    static async addPatient(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             let patient: Patient = req.body;
             const hashPassword: string = await Password.encrypt(patient.password);
@@ -25,9 +25,10 @@ export class PatientController {
 
             await PatientService.addPatient(patient);
 
-            return Utils.sendResponse(res, {
+            res.success = {
                 message: MESSAGES.SUCCESS.USER_ADDED
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
             next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
@@ -40,16 +41,17 @@ export class PatientController {
      * @param res response
      * @returns response
      */
-    static async getPatients(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    static async getPatients(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const limit: string = <string>req.query.limit;
             const offset: string = <string>req.query.offset;
 
             const patientProfiles: Patient[] = await PatientService.getPatients(parseInt(limit), parseInt(offset));
 
-            return Utils.sendResponse(res, {
+            res.success = {
                 patientProfiles
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
             next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
@@ -62,15 +64,16 @@ export class PatientController {
      * @param res response
      * @returns return success or error
      */
-    static async getPatientsById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    static async getPatientsById(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const id: string = req.params.id;
 
             const patient: Patient | null | undefined = await PatientService.getPatientById(id);
 
-            return Utils.sendResponse(res, {
+            res.success = {
                 patient
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
            next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
@@ -83,7 +86,7 @@ export class PatientController {
      * @param res response
      * @returns return success or error
      */
-    static async updatePatientById(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    static async updatePatientById(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const id: string = req.params.id;
             const {
@@ -108,9 +111,10 @@ export class PatientController {
 
             const patient: Patient | undefined | null = await PatientService.getPatientById(id);
 
-            return Utils.sendResponse(res, {
+            res.success = {
                 patient
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
            next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))

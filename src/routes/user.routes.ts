@@ -14,8 +14,8 @@ class UserRoutes {
         this.userRouter = express.Router();
         this.userRouter.post('/login', Validator.AuthValidator,UserController.login,SuccessHandler.HandleSuccess);
         this.userRouter.use(JwtToken.checkJwt)
-        this.userRouter.post('/', Validator.userValidator, UserController.addUser);
-        this.userRouter.get('/', Validator.paginationValidator, UserController.getUser);
+        this.userRouter.post('/', Validator.userValidator, UserController.addUser,SuccessHandler.HandleSuccess);
+        this.userRouter.get('/', Validator.paginationValidator, UserController.getUser,SuccessHandler.HandleSuccess);
     }
 }
 

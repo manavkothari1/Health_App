@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction } from 'express';
 import { Utils } from '../utils/utils';
 import { DoctorService } from '../services/doctor.service';
 import { MESSAGES } from '../core/constants/response.message';
 import { STATUS } from '../core/constants/status.code';
 import { Password } from '../utils/auth/Password';
-import { Doctor } from '../core/models';
+import { Doctor, IRequest, IResponse } from '../core/models';
 import { APIError } from '../utils/responseHandler';
 
 export class DoctorController {
@@ -15,7 +15,7 @@ export class DoctorController {
      * @param res response
      * @returns 
      */
-    static async addDoctor(req: Request, res: Response, next:NextFunction): Promise<Response | void> {
+    static async addDoctor(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const doctor: Doctor = req.body;
             const hashPassword = <string>await Password.encrypt(doctor.password);
@@ -24,12 +24,13 @@ export class DoctorController {
 
             await DoctorService.addDoctor(doctor);
 
-            return Utils.sendResponse(res, {
+            res.success = {
                 message: MESSAGES.SUCCESS.USER_ADDED
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
-            next(new APIError({message:MESSAGES.ERROR.SOMETHING_WENT_WRONG,status: STATUS.INTERNAL_SERVER_ERROR,isPublic:true}))
+            next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }
 
@@ -39,18 +40,20 @@ export class DoctorController {
      * @param res response
      * @returns return success or fail
      */
-    static async getDoctors(req: Request, res: Response,next:NextFunction): Promise<Response | void> {
+    static async getDoctors(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const limit: string = <string>req.query.limit;
             const offset: string = <string>req.query.offset;
 
-            const doctorProfiles : Doctor[]= await DoctorService.getDoctors(parseInt(limit), parseInt(offset));
-            return Utils.sendResponse(res, {
+            const doctorProfiles: Doctor[] = await DoctorService.getDoctors(parseInt(limit), parseInt(offset));
+           
+            res.success =  {
                 doctorProfiles
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
-            next(new APIError({message:MESSAGES.ERROR.SOMETHING_WENT_WRONG,status: STATUS.INTERNAL_SERVER_ERROR,isPublic:true}))
+            next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }
 
@@ -61,17 +64,19 @@ export class DoctorController {
      * @param res response
      * @returns return success or error
      */
-    static async getDoctorById(req: Request, res: Response,next:NextFunction): Promise<Response | void> {
+    static async getDoctorById(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const id: string = req.params.id;
-            const doctor : Doctor = await DoctorService.getDoctorById(id);
-            return Utils.sendResponse(res, {
+            const doctor: Doctor = await DoctorService.getDoctorById(id);
+            
+            res.success =  {
                 doctor
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
             // return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
-            next(new APIError({message:MESSAGES.ERROR.SOMETHING_WENT_WRONG,status: STATUS.INTERNAL_SERVER_ERROR,isPublic:true}))
+            next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }
 
@@ -82,7 +87,7 @@ export class DoctorController {
      * @param res response
      * @returns return success or fail
      */
-    static async updateDoctorById(req: Request, res: Response,next:NextFunction): Promise<Response | void> {
+    static async updateDoctorById(req: IRequest, res: IResponse, next: NextFunction): Promise<IResponse | void> {
         try {
             const id: string = req.params.id;
             const { full_name, gender, email, password, experience, education, licence_no }: {
@@ -98,13 +103,14 @@ export class DoctorController {
             await DoctorService.updateDoctorById({
                 full_name, gender, email, password, experience, education, licence_no, id
             });
-            const doctor : Doctor = await DoctorService.getDoctorById(id);
-            return Utils.sendResponse(res, {
+            const doctor: Doctor = await DoctorService.getDoctorById(id);
+            res.success =  {
                 doctor
-            })
+            }
+            next();
         } catch (e) {
             console.log(e);
-            next(new APIError({message:MESSAGES.ERROR.SOMETHING_WENT_WRONG,status: STATUS.INTERNAL_SERVER_ERROR,isPublic:true}))
+            next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }
 
