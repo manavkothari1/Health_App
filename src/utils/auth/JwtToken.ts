@@ -1,6 +1,5 @@
 import { Response, NextFunction } from "express";
 import * as jwt from "jsonwebtoken";
-import { Utils } from '../utils';
 import { MESSAGES } from '../../core/constants/response.message';
 import { STATUS } from '../../core/constants/status.code';
 // import { IRequest } from '../../core/models';

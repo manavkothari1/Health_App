@@ -27,6 +27,9 @@ class App {
          */
         this.app.use(router);
 
+        /**
+         * Handling Errors
+         */
         this.app.use(ErrorHandler.HandleError);
       
         /**

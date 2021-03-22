@@ -1,5 +1,4 @@
 import { NextFunction } from 'express';
-import { Utils } from '../utils/utils';
 import { DoctorService } from '../services/doctor.service';
 import { MESSAGES } from '../core/constants/response.message';
 import { STATUS } from '../core/constants/status.code';
@@ -75,7 +74,6 @@ export class DoctorController {
             next();
         } catch (e) {
             console.log(e);
-            // return Utils.sendError(res, STATUS.INTERNAL_SERVER_ERROR, MESSAGES.ERROR.SOMETHING_WENT_WRONG)
             next(new APIError({ message: MESSAGES.ERROR.SOMETHING_WENT_WRONG, status: STATUS.INTERNAL_SERVER_ERROR, isPublic: true }))
         }
     }

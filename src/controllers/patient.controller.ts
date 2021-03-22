@@ -2,7 +2,6 @@ import { NextFunction } from 'express';
 import { PatientService } from '../services/patient.service';
 import { MESSAGES } from '../core/constants/response.message';
 import { STATUS } from '../core/constants/status.code';
-import { Utils } from '../utils/utils'
 import { Password } from '../utils/auth/Password';
 import { Patient,IResponse,IRequest } from '../core/models';
 import { APIError } from '../utils/responseHandler';

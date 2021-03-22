@@ -3,7 +3,6 @@ import { DoctorService } from '../services/doctor.service';
 import { PatientService } from '../services/patient.service';
 import { MESSAGES } from '../core/constants/response.message';
 import { STATUS } from '../core/constants/status.code';
-import { Utils } from '../utils/utils'
 import { UserService } from '../services/user.service';
 import { Password, JwtToken } from '../utils/auth';
 import { User, IRequest, IResponse } from '../core/models';

@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { AuthSchema, UserSchema, DoctorSchema, PatientSchema, DoctorUpdateSchema, PatientUpdateSchema, IdSchema, PaginationSchema } from '../schemas';
-import { Utils } from '../utils';
 import { STATUS } from '../../core/constants/status.code';
 import {APIError } from './APIError';
 
