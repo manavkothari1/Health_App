@@ -6,10 +6,11 @@ v)      SOLID
 
 *****************authentications*****************
 i) self manage with JWT & Bcrypt & Refresh token
-ii) auth0 
-iii) Oauth2
+ii) auth0 ( openId connect )
+iii) Oauth2 ( implicit, token , client credentials)
+iv) Multi-factor authentications
 
-normalization
+normalization & indexing 
 POSTGRS Permissions
 HIPPA COMPLIENCE
 **************************************************
@@ -23,8 +24,8 @@ ii) Set request size limits ( resource intensive task )
     app.use(express.json({ limit: "1kb" }));
 iii) Do not block the event loop
 iv) Perform input validation
-    express-validator
-    JOI
+    JOI ( for schema )
+    express-validator ( for validating schema)
     ( for string validation )
     https://www.npmjs.com/package/validator 
 
@@ -33,14 +34,15 @@ v)  Perform output escaping
     node-esapi
 
 vi) Perform application activity logging
-    winstan, bunyan & morgan (req log)
+    winstan, bunyan 
+    morgan (req log)
 
 vii) Monitor the event loop
     DDOS ===> toobusy-js
 
-viii) For Bruteforce attack
-    Express-bouncer, express-brute and rate-limiter
-    HTTP - 429
+viii) For Bruteforce attack ( login type)
+    Express-bouncer, express-brute and rate-limiter ( express-rate-limiter & redis )
+    HTTP - 429 ( Too many requests )
     Captcha usage => svg-captcha
     https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#account-lockout
 
@@ -48,7 +50,6 @@ xi) Prevent HTTP Parameter Pollution
     hpp - module
 
 x) Only return what is necessary
-
 
 
 Error & Exception Handling
@@ -61,14 +62,15 @@ i) Handle uncaughtException
     });
 
 ii) Listen to errors when using EventEmitter
-iii) Handle errors in asynchronous calls
+iii) Handle errors in asynchronous calls ( error first callback)
 
 
 Server Security
 i) Set cookie flags appropriately
-    httpOnly, Secure and SameSite, domain, path
+    httpOnly, Secure and SameSite
+    domain, path
 
-ii) Use appropriate security headers
+ii) Use appropriate security headers ( helmetjs)
     a) HTTP Strict Transport security
     b) X-Frame-options
     c) X-XSS-Protection
@@ -78,7 +80,7 @@ ii) Use appropriate security headers
 
 
 Platform Security
-i) Keep your packages up-to-date, audit & check for updates
+i) Keep your packages up-to-date, npm audit & check for updates
 ii) use retirejs ( npm install -g retire )
 iii) Run security linters periodically
     ( Static Analysis Security Testing (SAST) tools )
@@ -87,4 +89,7 @@ iv) Use strict mode to avoide any weird cond
 
 
 Performance
-i) use gzip for compression
+i) use gzip for compression 
+( express - compression )
+( using nginx )
+
