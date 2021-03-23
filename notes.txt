@@ -1,0 +1,90 @@
+i)      Security
+ii)     Typescript
+iii)    Unit & e2e integration 
+iv)     Postgres ( concurrency & phandom reads, DT & sharding )
+v)      SOLID
+
+*****************authentications*****************
+i) self manage with JWT & Bcrypt & Refresh token
+ii) auth0 
+iii) Oauth2
+
+normalization
+POSTGRS Permissions
+HIPPA COMPLIENCE
+**************************************************
+
+//Nodejs Security
+
+Application Security
+i) Use flat Promise chains
+ii) Set request size limits ( resource intensive task )
+    app.use(express.urlencoded({ extended: true, limit: "1kb" }));
+    app.use(express.json({ limit: "1kb" }));
+iii) Do not block the event loop
+iv) Perform input validation
+    express-validator
+    JOI
+    ( for string validation )
+    https://www.npmjs.com/package/validator 
+
+v)  Perform output escaping
+    escape-html
+    node-esapi
+
+vi) Perform application activity logging
+    winstan, bunyan & morgan (req log)
+
+vii) Monitor the event loop
+    DDOS ===> toobusy-js
+
+viii) For Bruteforce attack
+    Express-bouncer, express-brute and rate-limiter
+    HTTP - 429
+    Captcha usage => svg-captcha
+    https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#account-lockout
+
+xi) Prevent HTTP Parameter Pollution 
+    hpp - module
+
+x) Only return what is necessary
+
+
+
+Error & Exception Handling
+
+i) Handle uncaughtException
+    process.on("uncaughtException", function(err) {
+    // clean up allocated resources
+    // log necessary error details to log files
+    process.exit(); // exit the process to avoid unknown state
+    });
+
+ii) Listen to errors when using EventEmitter
+iii) Handle errors in asynchronous calls
+
+
+Server Security
+i) Set cookie flags appropriately
+    httpOnly, Secure and SameSite, domain, path
+
+ii) Use appropriate security headers
+    a) HTTP Strict Transport security
+    b) X-Frame-options
+    c) X-XSS-Protection
+    d) X-content-type-options
+    e) CSP
+    f) Cache control for sensitive info
+
+
+Platform Security
+i) Keep your packages up-to-date, audit & check for updates
+ii) use retirejs ( npm install -g retire )
+iii) Run security linters periodically
+    ( Static Analysis Security Testing (SAST) tools )
+    ESLINT, TSLINT, SONARQUBE
+iv) Use strict mode to avoide any weird cond
+
+
+Performance
+i) use gzip for compression
